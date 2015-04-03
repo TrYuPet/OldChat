@@ -3,6 +3,7 @@
     <envs>
       <env name="DEBUG" value="Chat:*" />
       <env name="NODE_PATH" value="." />
+      <env name="NODE_ENV" value="development" />
     </envs>
     <browser url="http://localhost:3000/" />
     <method />
