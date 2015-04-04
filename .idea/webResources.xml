@@ -7,8 +7,8 @@
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/public" />
             <path value="file://$PROJECT_DIR$/public/vendor" />
-            <path value="file://$PROJECT_DIR$/public/vendor/bower_components/jquery" />
             <path value="file://$PROJECT_DIR$/public/vendor/bower_components" />
+            <path value="file://$PROJECT_DIR$" />
           </resourceRoots>
         </entryData>
       </entry>
