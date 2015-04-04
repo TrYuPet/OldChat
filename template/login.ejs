@@ -1,5 +1,5 @@
 <% layout('/layout/page') -%>
-<% block('title', "Регистрация и вход") -%>
+<% block('title', "Регистрация и вход") %>
 
 <p>Введите имя пользователя и пароль. Если такого пользователя нет - он будет создан.</p>
 
@@ -26,7 +26,8 @@
     </div>
 </form>
 
-<script>
+<script type = "text/javascript">
+//    function $(a){return document.getElementById(a)}
     $(document.forms['login-form']).on('submit', function() {
         var form = $(this);
 

@@ -30,10 +30,10 @@ app.use(express.cookieParser()); // req.cookies
 var MongoStore = require('connect-mongo')(express);
 
 app.use(express.session({
-    secret: config.get('session:secret'), // ABCDE242342342314123421.SHA256
+    secret: config.get('session:secret'),
     key: config.get('session:key'),
     cookie: config.get('session:cookie'),
-    store: new MongoStore({mongoose_connection: mongoose.connection})
+    store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 
 app.use(require('middleware/sendHttpError'));
