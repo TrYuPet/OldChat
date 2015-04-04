@@ -4,10 +4,13 @@
         <% if (user) { %>
         <li><a href="/chat">Чат</a></li>
         <% } %>
+        <li><a href="/profile">Профиль пользователя</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <% if (user) { %>
-        <li><a href="" onclick="$('<form method=POST action=/logout>').submit();return false">Выйти</a></form></li>
+        Вы:<%=user.get('username')%>
+        <li><a href="" onclick="$('<form method=POST action=/logout>').submit();
+        return false">Выйти</a></form></li>
         <% } else { %>
         <li><a href="/login">Войти</a></li>
         <% } %>

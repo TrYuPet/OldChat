@@ -12,6 +12,8 @@ module.exports = function(app) {
 
   app.post('/logout', require('./logout').post);
 
+  app.get('/profile', require('./profile').get);
+
   app.get('/chat', checkAuth, require('./chat').get);
 
 };
