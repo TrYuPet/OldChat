@@ -4,3 +4,16 @@
 <p class="lead">Упс... Профиль находится в стадии разработки :).</p>
 
 <p>Добро пожаловать, <%=user.get('username')%></p>
+<% if (user) { %>
+<div class="user-card">
+<img src="<%=user.get('photoUrl')%>" alt="">
+<div class="user-data">
+
+    Имя: <%=user.get('username')%>
+    Профиль: <a href="<%=user.get('profileUrl')%>"></a>
+
+</div>
+</div>
+
+Сменить пароль:<input type="password" name="password" placeholder="Пароль"><br>
+<% } %>
