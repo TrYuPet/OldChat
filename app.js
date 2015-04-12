@@ -1,21 +1,31 @@
+//подключаем наш express фреймвок
 var express = require('express');
+//модули http
 var http = require('http');
 var path = require('path');
+
 var config = require('config');
 var log = require('lib/log')(module);
 var mongoose = require('lib/mongoose');
 var HttpError = require('error').HttpError;
 
+//Функция обработки запросов
 var app = express();
+
 // почти тоже самое, что и ejs только есть возможности layout, partial, blok
 //engine. т.к файлы с таким расширением ejs, нужно обрабатывать как ejs-locals
 app.engine('ejs', require ('ejs-locals'));
+
+//указывает местоположение шаблонов
 app.set('views', __dirname + '/template');
+
+//дижок шаблонов
 app.set('view engine', 'ejs');
 
+//читает иконку или иначе передает управление дальше
 app.use(express.favicon()); // /favicon.ico
 
-//смотрит запросы
+//смотрит какой пришел запрос
 if (app.get('env') == 'development') {
   app.use(express.logger('dev'));
 } else {
@@ -39,13 +49,13 @@ app.use(express.session({
 app.use(require('middleware/sendHttpError'));
 app.use(require('middleware/loadUser'));
 
-
+//обрабатывает необходимые запросы нужным способом
 app.use(app.router);
 require('routes')(app);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+//обработчик ошибок
 app.use(function(err, req, res, next) {
     if (typeof err == 'number') { // next(404);
         err = new HttpError(err);
@@ -64,7 +74,9 @@ app.use(function(err, req, res, next) {
     }
 });
 
+//создаем http сервер
 var server = http.createServer(app);
+//подключаем порт
 server.listen(config.get('port'), function(){
     log.info('Express server listening on port ' + config.get('port'));
 });

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="nav navbar-default" role="navigation">
     <ul class="nav navbar-nav">
         <li><a href="/">Главная</a></li>
         <% if (user) { %>
@@ -9,10 +9,19 @@
     <ul class="nav navbar-nav navbar-right">
         <% if (user) { %>
         Вы:<%=user.get('username')%>
-        <li><a href="" onclick="$('<form method=POST action=/logout>').submit();
-        return false">Выйти</a></form></li>
+        <!-- <li><a href="" onclick="$('<form method=POST action=/logout>').submit();return false;"> Выйти </a> </form> </li> -->
+        <!-- <li><a id="exit" href="" onclick=""> Выйти </a>  </li>-->
+        <li><a href="" onclick="$('<form method=POST action=/logout> </form>').submit();return false"> Выйти </a>  </li>
         <% } else { %>
         <li><a href="/login">Войти</a></li>
         <% } %>
     </ul>
 </nav>
+<!--<script type="text/javascript">
+    $(document).ready( function() {
+        $("exit").onclick(function(){
+            $('<form method=POST action=/logout>').submit();
+            return false;
+        });
+    });
+</script>-->
