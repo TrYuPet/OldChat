@@ -27,9 +27,9 @@ app.use(express.favicon()); // /favicon.ico
 
 //смотрит какой пришел запрос
 if (app.get('env') == 'development') {
-  app.use(express.logger('dev'));
+    app.use(express.logger('dev'));
 } else {
-  app.use(express.logger('default'));
+    app.use(express.logger('default'));
 }
 //считывает формы методом post
 app.use(express.bodyParser());  // доступны в req.body....
@@ -37,13 +37,15 @@ app.use(express.bodyParser());  // доступны в req.body....
 //парсит куки
 app.use(express.cookieParser()); // req.cookies
 
-var MongoStore = require('connect-mongo')(express);
+var sessionStore = require('lib/sessionStore');
+//var MongoStore = require('connect-mongo')(express);
 
 app.use(express.session({
     secret: config.get('session:secret'),
     key: config.get('session:key'),
     cookie: config.get('session:cookie'),
-    store: new MongoStore({mongooseConnection: mongoose.connection})
+    store: sessionStore
+    //store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 
 app.use(require('middleware/sendHttpError'));
@@ -51,6 +53,7 @@ app.use(require('middleware/loadUser'));
 
 //обрабатывает необходимые запросы нужным способом
 app.use(app.router);
+
 require('routes')(app);
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -81,4 +84,5 @@ server.listen(config.get('port'), function(){
     log.info('Express server listening on port ' + config.get('port'));
 });
 
-require('./socket')(server);
+var io = require('./socket')(server);
+app.set('io', io);
