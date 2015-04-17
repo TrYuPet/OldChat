@@ -81,15 +81,4 @@ server.listen(config.get('port'), function(){
     log.info('Express server listening on port ' + config.get('port'));
 });
 
-//подключение socket.io к приложению
-var io = require('socket.io').listen(server);
-
-io.sockets.on('connection', function (socket) {
-//возвращаем сообщение всем поситителям.
-    //второй аргумент функции: когда on('message') получает что-то с клиента, то оно когда обработает
-    // должно вызвать callback.  именно в это cb она пеедаст данные, которые появятся в клиенте (chat.ejs -> ul)
-    socket.on('message', function (text, cb) {
-        socket.broadcast.emit('message', text);
-        cb("123");
-    });
-});
+require('./socket')(server);
