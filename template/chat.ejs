@@ -1,16 +1,16 @@
 <% layout('layout/page') -%>
 <% block('title', "Чат") -%>
 
-<p class="lead">Упс... Чат находится в стадии разработки :).</p>
 
 <p>Добро пожаловать, <%=user.get('username')%></p>
+<span id="Status"></span>
 
 <script src="vendor/bower_components/socket.io-client/socket.io.js"></script>
 
 <div id="room">
     <ul></ul>
     <form>
-        <input class="form-control" autocomplete="off" autofocus placeholder="Сообщение...">
+      <label ><%=user.get('username')%> </label>   <input class="form-control" autocomplete="off" autofocus placeholder="Сообщение...">
     </form>
 </div>
 
@@ -60,11 +60,25 @@
     }
 
     function printStatus(status) {
-        $('<li>').append($('<i>').text(status)).appendTo(ul);
+       // $('<li>').append($('<i>').text(status)).appendTo(ul);
+        $('#Status').text(status);
     }
 
     function printMessage(text) {
-        $('<li>').text(text).appendTo(ul);
+        var userName = $("<span />", {
+            "text": "<%=user.get('username')%>",
+            "class": "user"
+        });
+        var textMessage = $("<span />", {
+            "text": text,
+            "class": "textMessage"
+        });
+        var result = $("<div />", {
+            "class": "message"
+        })
+        result.append(userName);
+        result.append(textMessage);
+        $('<li>').append(result).appendTo(ul);
     }
 
 </script>
